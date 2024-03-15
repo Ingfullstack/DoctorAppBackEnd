@@ -1,11 +1,16 @@
+using BLL.Servicios;
+using BLL.Servicios.Interfaces;
 using Data;
 using Data.Interfaces;
+using Data.Interfaces.IRepositorio;
+using Data.Repositorio;
 using Data.Servicios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Utilidades;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +59,9 @@ builder.Services.AddCors();
 
 //Servicios
 builder.Services.AddScoped<ITokenServicio, TokenServicio>();
+builder.Services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IEspecialidadServicio, EspecialidadServicio>();
 
 //Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
